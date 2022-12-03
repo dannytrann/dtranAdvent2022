@@ -1,4 +1,4 @@
-// Rock Paper Scissors
+// Rock Paper Scissors 2
 
 // A Y
 // B X
@@ -28,7 +28,6 @@ try {
     // print all lines
     lines.forEach(line => {
         let opponent = '';
-        let me = '';
         for (const ch of line){
             if(ch != ' '){
                 switch(ch){
