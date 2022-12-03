@@ -2,8 +2,8 @@
 
 Counting Calories
 
-Description: Give a file input, find the elf which has the most calories and return the number of calories.
-Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
+Description: Give a file input, find the elves (top3) and add the calories they have.
+Find the elves(3) carrying the most Calories. How many total Calories is that elves carrying?
 */
 
 import * as fs from 'fs';
