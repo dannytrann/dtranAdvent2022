@@ -18,12 +18,11 @@ Arrays
 Directories
 */
 
-import { dir } from 'console';
 import * as fs from 'fs';
 let message: string = 'No Spaces 1';
 console.log(message);
-let skipDirectory = false;
 let total = 0;
+var style = "background: #222; color: #bada55";
 try {
     // read contents of the file
     const data = fs.readFileSync('input.txt', 'utf-8')
@@ -36,7 +35,7 @@ try {
       let level = 0;
       let dirFound = false;
       let endOfDir = false;
-      skipDirectory = false;
+
       var i = 0;
       while(!dirFound){
         const row = array[i].split(' ');
@@ -66,40 +65,22 @@ try {
       i = i + 2;
       while(!endOfDir){
         const row = array[i].split(' ');
-        console.log(row);
         if(!isNaN(Number(row[0]))){
-          if(Number(row[0]) > 100000){
-            dirSum = 0;
-            console.log("dirSum over 100,000, skipDirectory = true;");
-            skipDirectory = true;
-          } else if(!skipDirectory){
-            dirSum = dirSum + Number(row[0]);
-            console.log("Adding " + row[0] + " to " + dirSum); 
-          } else if(Number(row[0]) <= 100000 && skipDirectory){
-            console.log("Number is below 100,000 but directory size is already too big");
-          }
+          dirSum = dirSum + Number(row[0]);
         } else if(row[0] == 'dir'){
-          console.log("finding size of " + row);
-          dirSum = dirSum + findSizeofDir(array.slice(i, array.length), row[1])
-          console.log(row + " here");
-        } else if(row[1] == 'cd'){
-            if(row[2] == '..'){
-            //count is done
-            console.log("count for current dir is done!");
-            console.log(dirSum);
-            skipDirectory = false;
-            total = total + dirSum;
-            console.log("current total: " + total);
-            return dirSum;
-          } else {
-            console.log("end of top level");
-            console.log("current total: " + total);
-            return dirSum;
-          }
-          
-        } 
-        console.log(i + " "+ array.length);
-        if(i == array.length -1){
+          console.log(" ");
+          var tempDirSum = findSizeofDir(array.slice(i, array.length), row[1]);
+          console.log("Size of dir " + row[1] + " " + tempDirSum);
+          dirSum = dirSum + tempDirSum;
+        } else if(dirSum < 100000){
+              total = total + dirSum;
+              console.log('Adding ' + dirSum + " to total: " + total);
+
+              return dirSum;
+        } else {
+          return dirSum;
+        }
+        if(i == array.length - 1){
           return dirSum;
         } else {
           i++;
